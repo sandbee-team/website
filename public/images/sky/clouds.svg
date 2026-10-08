@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sandbee sky clouds. Derived from "Cumulus Cloud" by zeimusu (Openclipart #164761,
+  https://openclipart.org/detail/164761/cumulus-cloud), released CC0 1.0 / public domain
+  (https://openclipart.org/share). Adaptation 2026-09-11: the original soft puff (three
+  radial-gradient ellipses) is reused to compose three silhouettes — the original cumulus,
+  a distant horizontal band and a soft foreground mass. Pure vector: no raster, scripts,
+  remote references or animated filters. Referenced as <use href="clouds.svg#cloud-…">.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient
+        id="linearGradient5149"
+      >
+      <stop
+          id="stop5151"
+          style="stop-color:#959595"
+          offset="0"
+      />
+      <stop
+          id="stop5153"
+          style="stop-color:#ffffff;stop-opacity:0"
+          offset="1"
+      />
+    </linearGradient
+    >
+    <linearGradient
+        id="linearGradient4132"
+      >
+      <stop
+          id="stop4134"
+          style="stop-color:#ffffff"
+          offset="0"
+      />
+      <stop
+          id="stop4136"
+          style="stop-color:#ffffff;stop-opacity:0"
+          offset="1"
+      />
+    </linearGradient
+    >
+    <radialGradient
+        id="radialGradient5529"
+        xlink:href="#linearGradient4132"
+        gradientUnits="userSpaceOnUse"
+        cy="414.02"
+        cx="353.63"
+        gradientTransform="matrix(.72652 -.53970 .59013 .79441 -149.82 277.17)"
+        r="137.64"
+    />
+    <radialGradient
+        id="radialGradient5535"
+        xlink:href="#linearGradient5149"
+        gradientUnits="userSpaceOnUse"
+        cy="414.02"
+        cx="353.63"
+        gradientTransform="matrix(.72652 -.53970 .59013 .79441 -149.82 277.17)"
+        r="137.64"
+    />
+    <g
+        id="puff"
+        style="opacity:0.37"
+        transform="matrix(.56109 0 0 .49223 246.34 201.07)"
+      >
+      <path
+          style="fill:url(#radialGradient5529)"
+          d="m482.86 419.51c0 74.953-61.401 135.71-137.14 135.71-75.742 0-137.14-60.761-137.14-135.71 0-74.953 61.401-135.71 137.14-135.71 75.742 0 137.14 60.761 137.14 135.71z"
+          transform="matrix(.79237 0 0 .82176 43.209 99.057)"
+      />
+      <path
+          style="fill:url(#radialGradient5529)"
+          d="m482.86 419.51c0 74.953-61.401 135.71-137.14 135.71-75.742 0-137.14-60.761-137.14-135.71 0-74.953 61.401-135.71 137.14-135.71 75.742 0 137.14 60.761 137.14 135.71z"
+          transform="matrix(1.0298 .74921 -.34204 .47014 162.02 8.745)"
+      />
+      <path
+          style="fill:url(#radialGradient5529)"
+          d="m482.86 419.51c0 74.953-61.401 135.71-137.14 135.71-75.742 0-137.14-60.761-137.14-135.71 0-74.953 61.401-135.71 137.14-135.71 75.742 0 137.14 60.761 137.14 135.71z"
+          transform="matrix(.69020 .38920 -.53853 .95501 407.3 -88.662)"
+      />
+    </g
+    >
+    <symbol id="cloud-cumulus" viewBox="0 70 760 520">
+      <use href="#puff" transform="translate(-324.521 6.070)"/>
+      <use href="#puff" transform="translate(-159.226 -7.830)"/>
+      <use href="#puff" transform="translate(-130.426 -57.950)"/>
+      <use href="#puff" transform="translate(-110.350 -87.583)"/>
+      <use href="#puff" transform="translate(-170.549 -80.867)"/>
+      <use href="#puff" transform="translate(-207.161 -112.480)"/>
+      <use href="#puff" transform="translate(-201.701 -96.988)"/>
+      <use href="#puff" transform="translate(-163.798 -78.154)"/>
+      <use href="#puff" transform="translate(-250.141 -129.841)"/>
+      <use href="#puff" transform="translate(-249.371 -93.939)"/>
+      <use href="#puff" transform="translate(-278.561 -77.047)"/>
+      <use href="#puff" transform="translate(-243.521 -75.988)"/>
+      <use href="#puff" transform="translate(-242.591 -28.750)"/>
+      <use href="#puff" transform="translate(-263.551 -32.560)"/>
+      <use href="#puff" transform="translate(-220.381 -45.760)"/>
+      <use href="#puff" transform="translate(-238.771 -1.550)"/>
+      <use href="#puff" transform="translate(-287.511 15.500)"/>
+      <use href="#puff" transform="translate(-247.991 2.100)"/>
+      <use href="#puff" transform="translate(-173.051 2.020)"/>
+      <use href="#puff" transform="translate(-132.185 38.160)"/>
+      <use href="#puff" transform="translate(-133.537 9.920)"/>
+      <use href="#puff" transform="translate(-109.475 -15.380)"/>
+      <use href="#puff" transform="translate(-80.015 -164.342)"/>
+      <use href="#puff" transform="translate(-21.643 -102.109)"/>
+      <use href="#puff" transform="translate(-71.891 -140.986)"/>
+      <use href="#puff" transform="translate(-43.915 -176.673)"/>
+      <use href="#puff" transform="translate(-22.596 -146.006)"/>
+      <use href="#puff" transform="translate(7.265 -181.200)"/>
+      <use href="#puff" transform="translate(-21.823 -159.587)"/>
+      <use href="#puff" transform="translate(12.699 -224.744)"/>
+      <use href="#puff" transform="translate(43.699 -214.671)"/>
+      <use href="#puff" transform="translate(-44.748 -230.074)"/>
+      <use href="#puff" transform="translate(-61.126 -65.123)"/>
+      <use href="#puff" transform="translate(18.959 56.070)"/>
+      <use href="#puff" transform="translate(-0.507 16.630)"/>
+      <use href="#puff" transform="translate(61.049 7.330)"/>
+      <use href="#puff" transform="translate(40.509 -2.800)"/>
+      <use href="#puff" transform="translate(91.379 5.740)"/>
+      <use href="#puff" transform="translate(14.409 -4.490)"/>
+      <use href="#puff" transform="translate(45.719 -38.160)"/>
+      <use href="#puff" transform="translate(-6.227 -39.620)"/>
+      <use href="#puff" transform="translate(21.389 -59.270)"/>
+      <use href="#puff" transform="translate(-12.073 -12.990)"/>
+      <use href="#puff" transform="translate(-26.588 -47.130)"/>
+      <use href="#puff" transform="translate(-55.420 -31.660)"/>
+      <use href="#puff" transform="translate(-50.283 -88.283)"/>
+      <use href="#puff" transform="translate(-36.150 -93.225)"/>
+      <use href="#puff" transform="translate(-58.000 -108.277)"/>
+      <use href="#puff" transform="translate(1.134 -71.592)"/>
+    </symbol>
+    <symbol id="cloud-distant" viewBox="0 40 1400 200">
+      <use href="#puff" transform="translate(-176.5 -70.0) scale(0.55)"/>
+      <use href="#puff" transform="translate(-68.0 -105.0) scale(0.6)"/>
+      <use href="#puff" transform="translate(70.6 -82.0) scale(0.58)"/>
+      <use href="#puff" transform="translate(160.5 -130.0) scale(0.65)"/>
+      <use href="#puff" transform="translate(302.0 -95.0) scale(0.6)"/>
+      <use href="#puff" transform="translate(413.4 -120.0) scale(0.62)"/>
+      <use href="#puff" transform="translate(550.6 -90.0) scale(0.58)"/>
+      <use href="#puff" transform="translate(644.8 -126.0) scale(0.64)"/>
+      <use href="#puff" transform="translate(782.0 -94.0) scale(0.6)"/>
+      <use href="#puff" transform="translate(910.6 -97.0) scale(0.58)"/>
+      <use href="#puff" transform="translate(1043.5 -70.0) scale(0.55)"/>
+      <use href="#puff" transform="translate(35.0 -30.0) scale(0.5)"/>
+      <use href="#puff" transform="translate(396.4 -36.0) scale(0.52)"/>
+      <use href="#puff" transform="translate(765.0 -30.0) scale(0.5)"/>
+    </symbol>
+    <symbol id="cloud-soft" viewBox="0 60 900 360">
+      <use href="#puff" transform="translate(-415.0 -310.0) scale(1.5)"/>
+      <use href="#puff" transform="translate(-322.5 -460.0) scale(1.75)"/>
+      <use href="#puff" transform="translate(-26.5 -335.0) scale(1.55)"/>
+      <use href="#puff" transform="translate(-250.5 -210.0) scale(1.35)"/>
+      <use href="#puff" transform="translate(-62.0 -225.0) scale(1.4)"/>
+      <use href="#puff" transform="translate(-333.0 -100.0) scale(1.1)"/>
+      <use href="#puff" transform="translate(235.5 -120.0) scale(1.15)"/>
+      <use href="#puff" transform="translate(-76.0 -120.0) scale(1.2)"/>
+    </symbol>
+  </defs>
+</svg>

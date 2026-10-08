@@ -1,0 +1,157 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  padding-bottom: 85px;
+}
+.aside {
+  padding-top: 8px;
+}
+.aside h2 {
+  font-size: 22px;
+  font-weight: 550;
+  letter-spacing: -0.5px;
+}
+.aside p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--color-ink-muted);
+  margin: 17px 0;
+}
+.aside > a {
+  font-size: 14px;
+}
+.aside > div {
+  padding-top: 26px;
+  margin-top: 35px;
+  border-top: 1px solid var(--color-line);
+}
+.aside > div strong {
+  font-size: 14px;
+}
+.aside > div a {
+  font-size: 12px;
+}
+.form {
+  padding: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+}
+.form legend,
+.form > fieldset > label,
+.fields label {
+  font-size: 12px;
+  font-weight: 550;
+  display: block;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 28px;
+}
+.options label {
+  cursor: pointer;
+  position: relative;
+}
+.options input {
+  position: absolute;
+  opacity: 0;
+  left: 10px;
+  top: 10px;
+}
+.options span {
+  display: block;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: 10px 13px;
+  font-size: 11px;
+}
+.options input:checked + span {
+  background: var(--color-ink);
+  color: var(--color-inverse);
+  border-color: var(--color-ink);
+}
+.options input:focus-visible + span {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+  margin-bottom: 24px;
+}
+.form input:not([type='radio']),
+.form textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  padding: 12px;
+  margin-top: 9px;
+  font: inherit;
+  font-weight: 400;
+}
+.form textarea {
+  resize: vertical;
+  min-height: 135px;
+}
+.form button {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  border-radius: var(--radius-control);
+  background: var(--color-ink);
+  color: var(--color-inverse);
+  padding: 14px 20px;
+  font-size: 12px;
+  margin-top: 25px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.note {
+  font-size: 11px;
+  color: var(--color-ink-muted);
+  line-height: 1.7;
+  margin-top: 15px;
+}
+.ready {
+  padding: 20px;
+  background: var(--color-mint);
+  margin-top: 25px;
+  border-radius: var(--radius-control);
+  font-size: 13px;
+}
+.ready p {
+  margin: 10px 0;
+  line-height: 1.7;
+}
+.ready a {
+  display: inline-block;
+  font-weight: 650;
+  padding: 8px 0;
+}
+.ready small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 12px;
+}
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .form {
+    padding: 24px;
+  }
+  .fields {
+    grid-template-columns: 1fr;
+  }
+  .aside > div {
+    margin-top: 20px;
+  }
+}

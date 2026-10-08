@@ -1,0 +1,19 @@
+# Normalise line endings; hooks must stay LF so Git Bash / macOS / Linux can execute them
+* text=auto eol=lf
+*.sh text eol=lf
+.claude/hooks/git/* text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
+*.webm binary

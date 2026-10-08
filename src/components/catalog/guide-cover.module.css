@@ -1,0 +1,75 @@
+.cover {
+  background: var(--color-blue-soft);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  padding: 22px;
+  margin-bottom: 24px;
+  color: var(--color-ink);
+  overflow: hidden;
+}
+.cover[data-kind='ocr'] {
+  background: var(--color-mint);
+}
+.cover[data-kind='pos'] {
+  background: var(--color-warm);
+}
+.label {
+  font-size: 11px;
+  color: var(--color-ink-muted);
+}
+.composition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 0;
+}
+.tile {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-product);
+  color: var(--color-primary);
+}
+.tile svg {
+  width: 30px;
+  height: 30px;
+}
+.connector {
+  width: 38px;
+  border-top: 1px dashed var(--color-line-strong);
+}
+.lines {
+  width: 80px;
+  padding: 16px;
+  display: grid;
+  gap: 7px;
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+.lines i {
+  height: 4px;
+  background: var(--color-line-strong);
+  border-radius: var(--radius-pill);
+}
+.lines i:last-child {
+  width: 65%;
+}
+.caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+.caption svg {
+  width: 20px;
+  height: 20px;
+}

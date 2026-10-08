@@ -1,0 +1,81 @@
+---
+id: hosted-api-or-installed-sdk
+title: 'Hosted API or installed SDK: choose the operating model'
+summary: "Compare where code runs, who operates it and what failure handling you own, using Sandbee's free GST API and customer-hosted OCR SDK."
+publishedAt: '2026-09-25T10:00:00+05:30'
+authors: [sandbee]
+category: developer
+relatedTechnologies: [aadhaar-pan-ocr]
+relatedPosts:
+  [customer-hosted-ocr-integration, pos-deployment-handover-checklist]
+draft: false
+---
+
+A hosted API and an installed SDK can both put a capability inside your application.
+They create different operating responsibilities. The useful comparison starts
+with where the work happens, what crosses the network, and who responds when a
+dependency fails.
+
+Sandbee has concrete examples of both models: a
+[free hosted GST API](https://gstapi.sandbee.in) and a free
+[customer-hosted OCR SDK](/technology/aadhaar-pan-ocr). They solve different
+problems, so they are examples of delivery models rather than interchangeable
+products.
+
+## Start with where the work runs
+
+With the hosted GST API, your application calls Sandbee's hosted endpoint. Your
+integration owns the calling code and its handling of responses. You do not install
+that API's processing service on your own machine to call it.
+
+With the OCR SDK, the processing runs on your server. You supply a compatible
+environment: Node.js 22 or newer, with Windows x64 or Linux x64 with glibc among the
+verified platforms. Your deployment process therefore needs to include the runtime
+and SDK, as well as your application.
+
+Write down which environment you can actually operate. A team comfortable calling
+HTTP services may still need help maintaining a server process. Another team may
+already have a controlled document-processing environment where a local SDK fits.
+
+## Make the data boundary explicit
+
+Draw the request as a short sequence in your integration notes. Name the input,
+the receiving system, the result and any retained copy. This is more useful than
+labelling an entire architecture simply as hosted or local.
+
+For Sandbee OCR, documents remain on the customer's server. The SDK also performs
+startup verification and periodic lease checks. Document locality therefore does
+not imply that the installed package has no external access dependency.
+
+For a hosted API, inspect its current request documentation before deciding what
+your application will send. Keep the comparison specific to the capability: a GST
+lookup and OCR extraction have different inputs and outputs. Do not transfer a
+data-handling assumption from one offering to the other.
+
+## Compare failure and change ownership
+
+List a few failures before implementing the happy path. For a hosted integration,
+decide how your application handles an unavailable endpoint, a rejected request
+and an unexpected response. Set an explicit waiting limit appropriate to the
+user's workflow, and make failures understandable to the operator.
+
+For an installed SDK, also plan for a failed startup, a runtime change and access
+verification problems. Identify who updates the package and who can inspect the
+customer's server. Confirm the supported recovery procedure before building retries
+around an assumption.
+
+Neither delivery model eliminates application maintenance. The question is which
+parts your team will own and whether those responsibilities are documented.
+
+## Write a short integration decision
+
+Before committing to implementation, record these answers:
+
+- Which capability does the application need, and which offering supplies it?
+- Where will the processing run, and what information leaves the application?
+- Who owns credentials, deployment changes and incident diagnosis?
+- Which limits, access conditions and recovery steps need confirmation?
+
+Both Sandbee examples here are free offerings. Still, include your own hosting,
+integration and maintenance work in the decision. Free access describes a price;
+the operating model describes the work needed to keep an integration useful.

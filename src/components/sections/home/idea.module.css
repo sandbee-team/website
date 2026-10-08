@@ -1,0 +1,205 @@
+/* Section 2 composition + the operating-model panel. The chip is the section's one
+   honey element (check:rules honey allowlist). */
+.idea {
+  background-color: var(--color-canvas);
+}
+.grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 4rem;
+  }
+}
+.copy {
+  min-width: 0;
+}
+.figure {
+  min-width: 0;
+}
+
+/* The panel */
+.lab {
+  overflow: hidden;
+}
+.topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem 0;
+  color: var(--color-ink-muted);
+}
+.scene {
+  position: relative;
+}
+.scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.construction {
+  stroke: var(--color-ink);
+  stroke-width: 0.65;
+  opacity: 0.14;
+}
+.registration {
+  stroke: var(--color-line-strong);
+  stroke-width: 0.8;
+}
+.plate {
+  fill: var(--color-canvas);
+  stroke: var(--color-ink);
+  stroke-width: 1.25;
+}
+.side {
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  stroke-width: 1;
+}
+.trace {
+  stroke: var(--color-ink-muted);
+  stroke-width: 0.8;
+}
+.chip {
+  fill: var(--color-honey);
+  stroke: var(--color-ink);
+  stroke-width: 1.2;
+}
+.chipSide {
+  fill: var(--color-honey-ink);
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}
+.chipMark {
+  stroke: var(--color-ink);
+  stroke-width: 3;
+}
+.detail,
+.cell {
+  fill: var(--color-ink);
+}
+.signal {
+  stroke: var(--color-ink);
+  stroke-width: 5;
+}
+/* Active stage: its plate lifts to sky-mist with a heavier outline. */
+.lab[data-stage='0'] [data-layer='0'] .plate,
+.lab[data-stage='1'] [data-layer='1'] .plate,
+.lab[data-stage='2'] [data-layer='2'] .plate,
+.lab[data-stage='3'] [data-layer='3'] .plate {
+  fill: var(--color-sky-mist);
+  stroke-width: 2.5;
+}
+.lab[data-expanded='true'] [data-layer='0'] {
+  transform: translateY(-18px);
+}
+.lab[data-expanded='true'] [data-layer='1'] {
+  transform: translateY(-4px);
+}
+.lab[data-expanded='true'] [data-layer='2'] {
+  transform: translateY(14px);
+}
+.lab[data-expanded='true'] [data-layer='3'] {
+  transform: translateY(28px);
+}
+.lab[data-expanded='false'] [data-layer='0'] {
+  transform: translateY(78px);
+}
+.lab[data-expanded='false'] [data-layer='1'] {
+  transform: translateY(30px);
+}
+.lab[data-expanded='false'] [data-layer='2'] {
+  transform: translateY(-26px);
+}
+.lab[data-expanded='false'] [data-layer='3'] {
+  transform: translateY(-90px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Assembly confirms the layer relationship (Level 2, explicit control). */
+  .layer {
+    transition: transform calc(var(--duration-short) * 3) var(--ease-out-brand);
+  }
+}
+.assemble {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 1rem 0.75rem auto;
+  padding: 0 0.75rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  color: var(--color-ink);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+}
+.assemble:hover {
+  background: var(--color-sky-mist);
+}
+.stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--color-line);
+}
+.stages button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  min-height: 3.75rem;
+  padding: 0.75rem 0.75rem;
+  font-size: var(--text-ui);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+  cursor: pointer;
+  border-right: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.stages button:last-child {
+  border-right: 0;
+}
+.stages button > span:first-child {
+  color: var(--color-ink-muted);
+}
+.stages button[aria-pressed='true'] {
+  color: var(--color-surface);
+  background: var(--color-primary);
+}
+.stages button[aria-pressed='true'] > span:first-child {
+  color: var(--color-inverse-muted);
+}
+.stages button:hover:not([aria-pressed='true']) {
+  background: var(--color-sky-mist);
+}
+.stages button:focus-visible {
+  outline-offset: -3px;
+  border-radius: 0;
+}
+.caption {
+  min-height: 3.75rem;
+  padding: 0.875rem 1.25rem 1rem;
+  color: var(--color-ink-muted);
+  border-top: 1px solid var(--color-line);
+}
+@media (max-width: 767px) {
+  .stages button {
+    padding-inline: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  .topline {
+    padding: 0.875rem 1rem 0;
+  }
+  .caption {
+    padding-inline: 1rem;
+  }
+}
+@media (max-width: 359px) {
+  .stages button {
+    font-size: 0.75rem;
+    padding-inline: 0.375rem;
+  }
+}

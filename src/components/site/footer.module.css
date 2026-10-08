@@ -1,0 +1,118 @@
+.footer {
+  background: var(--color-sky-mist);
+  color: var(--color-ink);
+  padding: 70px 0 25px;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 45px;
+  border-bottom: 1px solid var(--color-line);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  letter-spacing: -1px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.brand svg {
+  height: 35px;
+  width: 33px;
+}
+.top p {
+  color: var(--color-ink-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+.store {
+  font-size: 28px;
+  letter-spacing: -1px;
+  text-decoration: none;
+  align-self: center;
+}
+.store span {
+  font-size: 13px;
+  letter-spacing: 0;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  color: var(--color-primary);
+  margin-top: 15px;
+}
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.3fr;
+  gap: 30px;
+  padding: 43px 0 55px;
+}
+.links h2 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.links a {
+  display: block;
+  width: fit-content;
+  color: var(--color-ink-muted);
+  font-size: 12px;
+  text-decoration: none;
+  margin-top: 13px;
+  line-height: 1.5;
+}
+.links a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+.links p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--color-ink-muted);
+  margin-top: 22px;
+}
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--color-ink-muted);
+  border-top: 1px solid var(--color-line);
+  padding-top: 22px;
+  gap: 18px;
+}
+.bottom div {
+  display: flex;
+  gap: 24px;
+}
+.bottom a {
+  text-decoration: none;
+}
+@media (max-width: 700px) {
+  .footer {
+    padding-top: 45px;
+  }
+  .top {
+    flex-direction: column;
+  }
+  .store {
+    align-self: flex-start;
+    font-size: 23px;
+  }
+  .links {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+  }
+  .links a {
+    font-size: 11px;
+  }
+  .bottom {
+    flex-wrap: wrap;
+  }
+  .bottom > span:nth-child(2) {
+    display: none;
+  }
+}

@@ -1,0 +1,135 @@
+.story {
+  position: relative;
+  background: var(--color-canvas);
+}
+.hero,
+.chapterSection {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+.content {
+  width: 100%;
+}
+.copy {
+  width: 43%;
+  padding-block: 4rem;
+}
+.overline {
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+.title {
+  max-width: 7ch;
+  font-size: clamp(4.5rem, 7.8vw, 8.5rem);
+  letter-spacing: -0.065em;
+}
+.title span {
+  display: block;
+  color: var(--color-primary);
+}
+.intro {
+  max-width: 32ch;
+  margin-block: 1.75rem;
+  color: var(--color-ink-muted);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.anchor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 44px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.anchor:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.chapter {
+  margin-top: 3rem;
+  color: var(--color-ink-muted);
+  font-family: var(--font-mono);
+}
+.chapterTitle {
+  max-width: 10ch;
+  font-size: clamp(2.75rem, 5vw, 5rem);
+  letter-spacing: -0.045em;
+}
+.chapterTitle span {
+  display: block;
+}
+.chapterBar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-block: 1px solid var(--color-line);
+  margin-inline: var(--gutter);
+}
+.chapterBar a {
+  padding: 1.5rem 0.5rem;
+  min-height: 44px;
+  color: var(--color-ink);
+  text-decoration: none;
+  font-size: var(--text-caption);
+}
+.chapterBar a + a {
+  border-left: 1px solid var(--color-line);
+  padding-left: 1.5rem;
+}
+.chapterBar a:hover {
+  background: var(--color-sky-mist);
+}
+@media (max-width: 767px) {
+  .hero,
+  .chapterSection {
+    align-items: flex-start;
+    min-height: max(820px, 100svh);
+  }
+  .copy {
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+  .overline {
+    margin-bottom: 1.1rem;
+    font-size: var(--text-kicker);
+  }
+  .title {
+    max-width: none;
+    font-size: clamp(3.4rem, 14vw, 5.5rem);
+    line-height: 0.98;
+  }
+  .title span {
+    display: block;
+  }
+  .intro {
+    font-size: var(--text-body);
+    max-width: 38ch;
+    margin-block: 1.2rem;
+  }
+  .actions {
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  .chapter {
+    display: none;
+  }
+  .chapterTitle {
+    max-width: 16ch;
+    font-size: clamp(2.75rem, 10vw, 4rem);
+  }
+  .chapterSection .copy {
+    padding-top: 3rem;
+  }
+  .chapterBar a + a {
+    padding-left: 0.75rem;
+  }
+}

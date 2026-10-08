@@ -1,0 +1,68 @@
+.entry {
+  position: relative;
+  min-width: 0;
+}
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+.orbit {
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 1;
+}
+.back {
+  fill: var(--color-sky-mist);
+  stroke: var(--color-primary);
+  stroke-width: 1;
+}
+.sheet {
+  fill: var(--color-surface);
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+}
+.tile {
+  fill: var(--color-sky-mist);
+  stroke: var(--color-primary);
+  stroke-width: 1;
+}
+.solid {
+  fill: var(--color-primary);
+}
+.line {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.code {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.light {
+  fill: none;
+  stroke: var(--color-inverse);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .object {
+    transition: transform calc(var(--duration-short) * 2) var(--ease-out-brand);
+  }
+  .entry:hover .object,
+  .entry:focus-within .object {
+    transform: translateY(-7px);
+  }
+}
+@media (max-width: 767px) {
+  .art {
+    width: min(100%, 330px);
+    margin-inline: auto;
+  }
+}

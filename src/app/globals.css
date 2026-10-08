@@ -1,0 +1,858 @@
+@import 'tailwindcss';
+
+/* Public catalog and reading defaults, shared by server-rendered routes. */
+.catalog-breadcrumb {
+  margin-bottom: 24px;
+}
+.blog-article .page-scaffold {
+  max-width: 1080px;
+}
+.blog-article .blog-prose {
+  max-width: 70ch;
+}
+.blog-article nav[aria-label='In this post'] {
+  padding: 24px;
+  background: var(--color-sky-mist);
+  border-radius: var(--radius-control);
+}
+.blog-article .blog-prose h2 {
+  scroll-margin-top: 100px;
+}
+
+/*
+ * Sandbee design tokens — the single source of truth (ADR-0007 §4, ADR-0017).
+ * Palette: September 28 daylight glass; see docs/research/2026-09-28-daylight-glass.md.
+ * No raw hex, colour function or radius value may appear anywhere outside this file.
+ * Section-specific composition lives in *.module.css next to its component — this
+ * file holds tokens, base rules, composite utilities and shared component classes only.
+ */
+@theme {
+  /* Tailwind's default colour/radius/shadow/font namespaces stay cleared so no generic
+     palette, stock radius, stock shadow or stock font can leak in (spec §20). */
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --font-*: initial;
+
+  /* ---- Colour: September 14 sculptural story; contrast pinned in tokens.test.ts ---- */
+  --color-canvas: #fafbfd;
+  --color-surface: #ffffff;
+  --color-sky: #edf3fc;
+  --color-sky-mist: #edf1f7;
+  --color-ink: #18263e;
+  --color-ink-muted: #52617a;
+  --color-primary: #2856bd;
+  --color-primary-hover: #20449a;
+  --color-honey: #f2c35b;
+  --color-signal: #f2c35b;
+  --color-honey-ink: #65501f;
+  --color-honey-dark: #544016;
+  --color-line: #dce3ef;
+  --color-line-strong: #7c8ba4;
+  --color-night: #17253d;
+  --color-night-panel: #30415b;
+  --color-inverse: #f7faff;
+  --color-inverse-muted: #c2cddd;
+  --color-warm: #f7f0e5;
+  --color-mint: #ecf5ef;
+  --color-blue-soft: #edf3fc;
+  --shadow-product: 0 24px 65px -24px rgb(28 54 98 / 0.23);
+  --color-error: #9b2c2c;
+  --color-success: #326546;
+
+  --color-sculpture-coral: #ea7656;
+
+  --color-sculpture-citron: #e5e5a5;
+
+  --color-sculpture-plum: #725269;
+
+  --color-sculpture-shadow: #d0c3b6;
+
+  /* ---- Shape (plan §5): 8px controls, 16px panels, pills only for compact tags ---- */
+  --radius-control: 8px;
+  --radius-panel: 16px;
+  --radius-pill: 9999px;
+
+  /* ---- Shadow: only where elevation helps (an open menu). Nothing else. ---- */
+  --shadow-menu: 0 12px 32px -12px rgb(20 43 58 / 0.25);
+
+  /* ---- Type scale (plan §3), fluid between 390px and 1440px viewports ----
+     display   46 → 108   hero title (one per page)
+     hero      34 → 56    page/section title (plan "section title" 32–40 / 44–64)
+     section   28 → 40    h2 inside pages
+     title-sm  20 → 24    h3 / entry titles
+     lede      18 → 21    intro paragraphs
+     body      16 → 18    reading text, lh 1.6, measure ≤ 64ch
+     ui        15         navigation / buttons
+     caption   13         supporting labels, meta
+     kicker    12         occasional uppercase section marker
+     code      14         system monospace */
+  --text-display: clamp(2.75rem, 1.6rem + 3.8vw, 4.75rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 700;
+  --text-hero: clamp(2.125rem, 1.6143rem + 2.0952vw, 3.5rem);
+  --text-hero--line-height: 1.08;
+  --text-hero--letter-spacing: -0.02em;
+  --text-hero--font-weight: 700;
+  --text-section: clamp(1.75rem, 1.4714rem + 1.1429vw, 2.5rem);
+  --text-section--line-height: 1.12;
+  --text-section--letter-spacing: -0.015em;
+  --text-section--font-weight: 700;
+  --text-title-sm: clamp(1.25rem, 1.157rem + 0.381vw, 1.5rem);
+  --text-title-sm--line-height: 1.25;
+  --text-title-sm--letter-spacing: -0.01em;
+  --text-title-sm--font-weight: 600;
+  --text-lede: clamp(1.125rem, 1.0554rem + 0.2857vw, 1.3125rem);
+  --text-lede--line-height: 1.5;
+  --text-body: clamp(1rem, 0.9536rem + 0.1905vw, 1.125rem);
+  --text-body--line-height: 1.6;
+  --text-ui: 0.9375rem; /* 15px */
+  --text-ui--line-height: 1.2;
+  --text-ui--font-weight: 500;
+  --text-action: 0.9375rem; /* 15px button label */
+  --text-action--line-height: 1.2;
+  --text-action--font-weight: 600;
+  --text-caption: 0.8125rem; /* 13px */
+  --text-caption--line-height: 1.45;
+  --text-kicker: 0.75rem; /* 12px */
+  --text-kicker--line-height: 1.4;
+  --text-kicker--letter-spacing: 0.08em;
+  --text-kicker--font-weight: 600;
+  --text-code: 0.875rem; /* 14px */
+  --text-code--line-height: 1.6;
+  --text-wordmark: 1.375rem; /* 22px */
+  --text-wordmark--line-height: 1;
+  --text-wordmark--letter-spacing: -0.02em;
+  --text-wordmark--font-weight: 700;
+}
+
+/* next/font variable slots (ADR-0007 §4). The brand variables are set on <html> by
+   src/app/fonts.ts via next/font/local and already include their fallback stacks. The
+   mono stack is the system one on purpose (plan §3: no downloaded mono family). */
+@theme inline {
+  --font-sans: var(--font-sans-brand, system-ui, sans-serif);
+  --font-serif: var(--font-serif-brand, Georgia, 'Times New Roman', serif);
+  --font-mono:
+    ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+}
+
+/* Plain custom properties (no utilities generated). */
+:root {
+  /* September 29 brand landing: bounded glass material, never body-copy colors. */
+  --radius-glass: 58px;
+  --radius-inset: 52px;
+  --landing-atmosphere: linear-gradient(
+    112deg,
+    #fafbfd 15%,
+    #f4f6fa 65%,
+    #f1f3f6
+  );
+  /* Keep each glow inside its box so its transparent edge blends into the hero. */
+  --glass-halo:
+    radial-gradient(
+      ellipse 45% 45% at 50% 50%,
+      rgb(178 204 235 / 0.42),
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 35% 35% at 65% 65%,
+      rgb(240 215 170 / 0.32),
+      transparent 100%
+    );
+  --glass-ground: #8495ad;
+  --glass-edge: rgb(255 255 255 / 0.92);
+  --glass-inner-edge: rgb(255 255 255 / 0.52);
+  --glass-sheet: linear-gradient(
+    132deg,
+    rgb(255 255 255 / 0.8),
+    rgb(231 240 251 / 0.3) 45%,
+    rgb(255 255 255 / 0.55)
+  );
+  --glass-back: linear-gradient(140deg, #e8f0f9, #bed2eb 55%, #f1e6ce);
+  --glass-middle: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 0.8),
+    rgb(204 223 244 / 0.48)
+  );
+  --glass-sheet-shadow:
+    inset 2px 2px 4px rgb(255 255 255 / 0.9),
+    inset -2px -2px 4px rgb(114 139 173 / 0.2),
+    12px 24px 55px -22px rgb(57 80 111 / 0.28);
+  --glass-mark-light: #f4f9ff;
+  --glass-mark-mid: #9eafc6;
+  --glass-mark-dark: #697f9f;
+  --glass-mark-stroke: #dce6f2;
+  --glass-amber-light: #fff5d7;
+  --glass-amber-mid: #e5bd6c;
+  --glass-amber-dark: #a77931;
+  --glass-mark-shadow: 0 5px 3px rgb(68 93 125 / 0.19);
+  --glass-etched: #65768e;
+  /* Daylight materials. Opaque bases remain the fallback without blur support. */
+  --material-glass: rgb(255 255 255 / 0.8);
+  --material-glass-strong: rgb(255 255 255 / 0.94);
+  --material-edge: rgb(255 255 255 / 0.92);
+  --material-hero: linear-gradient(
+    90deg,
+    #f5f8fc 0%,
+    rgb(245 248 252 / 0.98) 32%,
+    rgb(240 246 255 / 0.28) 72%,
+    rgb(237 243 252 / 0.12)
+  );
+  --material-wash: linear-gradient(120deg, #edf3fc, #f9f9fd 58%, #f7f0e5);
+  --material-card: linear-gradient(145deg, #edf3fc, #f8faff);
+  --material-highlight: linear-gradient(
+    120deg,
+    rgb(255 255 255 / 0.9),
+    rgb(255 255 255 / 0.12)
+  );
+  /* Layout (plan §5): container 1280 · gutters 20/32/48/64 · 4/8/12 grid · reading ≤ 64ch. */
+  --container-max: 1280px;
+  --gutter: 20px;
+  --grid-gutter: 24px;
+  --measure: 64ch;
+  --content-block: 46rem; /* multi-element reading column */
+  --form-block: 36rem;
+  /* Section rhythm: 56–72px mobile → 96–128px desktop. */
+  --space-section: clamp(3.5rem, 2rem + 5.5vw, 7.5rem);
+  --space-section-sm: clamp(2.5rem, 1.5rem + 3.5vw, 5rem);
+
+  /* Focus ring: 2px primary on light grounds; honey on night (both ≥ 3:1). */
+  --focus-ring-color: var(--color-primary);
+
+  /* Motion tokens — the complete allowed set for interaction CSS (ADR-0007 §6):
+       --duration-micro   hover/press confirmation
+       --duration-short   state/disclosure changes
+       --ease-out-brand   the only ease
+     Atmosphere (plan §7): cloud drift 38/58s alternate; one 3000ms bee arrival per
+     session after fonts are ready; 1000ms staggered ink pass on b/e/e; 90ms wingbeat.
+     Under prefers-reduced-motion every duration zeroes AND the global cap applies. */
+  --duration-micro: 120ms;
+  --duration-short: 200ms;
+  --ease-out-brand: cubic-bezier(0.2, 0, 0, 1);
+  --duration-cloud-near: 38s;
+  --duration-cloud-far: 58s;
+  --duration-bee-arrival: 3000ms;
+  --duration-bee-ink: 1000ms;
+  --duration-bee-ink-step: 130ms;
+  --duration-bee-wing: 90ms;
+  --ease-bee-arrival: cubic-bezier(0.18, 0.48, 0.22, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 48px;
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --gutter: 64px;
+  }
+}
+
+/* Inverse surface: developer section, footer, code. Focus and action colours invert. */
+[data-surface='night'] {
+  --focus-ring-color: var(--color-honey);
+}
+
+/* Token-level reduced-motion guarantee (spec §21, ADR-0009 §1): every duration
+   collapses to an instant, complete end state; the blanket cap catches the rest.
+   JS-driven tweens are guarded separately (WAAPI arrival checks matchMedia;
+   MotionConfig reducedMotion="user" in the stepper island). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-micro: 0ms;
+    --duration-short: 0ms;
+    --duration-cloud-near: 0ms;
+    --duration-cloud-far: 0ms;
+    --duration-bee-arrival: 0ms;
+    --duration-bee-ink: 0ms;
+    --duration-bee-ink-step: 0ms;
+    --duration-bee-wing: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-feature-settings: 'ss01' 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-sky-mist);
+    color: var(--color-ink);
+  }
+  [data-surface='night'] ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-inverse);
+  }
+
+  /* Visible focus everywhere (WCAG 2.4.13-style appearance, ADR-0009 §1). */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: 2px;
+    border-radius: var(--radius-control);
+  }
+
+  /* Wide content scrolls inside its own container, never the page body (spec §27). */
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* ---- Composite type utilities (ADR-0004 graft 7 — checkable, not conventional) ----
+   The serif accent is reachable ONLY through type-serif inside a display/hero element;
+   `npm run check:rules` (R5) fails any bare font-serif / text-display / text-hero /
+   text-section class in src/**. Uppercase exists only inside type-kicker (R6). */
+@utility type-display {
+  font-family: var(--font-sans);
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+  font-weight: var(--text-display--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-hero {
+  font-family: var(--font-sans);
+  font-size: var(--text-hero);
+  line-height: var(--text-hero--line-height);
+  letter-spacing: var(--text-hero--letter-spacing);
+  font-weight: var(--text-hero--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-section {
+  font-family: var(--font-sans);
+  font-size: var(--text-section);
+  line-height: var(--text-section--line-height);
+  letter-spacing: var(--text-section--letter-spacing);
+  font-weight: var(--text-section--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-title-sm {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-sm);
+  line-height: var(--text-title-sm--line-height);
+  letter-spacing: var(--text-title-sm--letter-spacing);
+  font-weight: var(--text-title-sm--font-weight);
+}
+
+/* The one editorial accent per section: Instrument Serif, upright, display sizes only. */
+@utility type-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+@utility type-lede {
+  font-family: var(--font-sans);
+  font-size: var(--text-lede);
+  line-height: var(--text-lede--line-height);
+  font-weight: 400;
+  max-width: var(--measure);
+}
+
+@utility type-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  max-width: var(--measure);
+}
+
+@utility type-ui {
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  line-height: var(--text-ui--line-height);
+  font-weight: var(--text-ui--font-weight);
+}
+
+@utility type-caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+}
+
+/* Occasional section marker — the ONLY uppercase in the system. */
+@utility type-kicker {
+  font-family: var(--font-sans);
+  font-size: var(--text-kicker);
+  line-height: var(--text-kicker--line-height);
+  letter-spacing: var(--text-kicker--letter-spacing);
+  font-weight: var(--text-kicker--font-weight);
+  text-transform: uppercase;
+}
+
+/* Supporting label: sentence case, medium weight, 13px. */
+@utility type-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: 500;
+}
+
+/* Diagram-grammar labels: SVG text only — mono, lowercase as authored, no tracking. */
+@utility type-label-diagram {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+@utility type-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-code);
+  line-height: var(--text-code--line-height);
+}
+
+@utility type-wordmark {
+  font-family: var(--font-sans);
+  font-size: var(--text-wordmark);
+  line-height: var(--text-wordmark--line-height);
+  letter-spacing: var(--text-wordmark--letter-spacing);
+  font-weight: var(--text-wordmark--font-weight);
+}
+
+/* ---- Layout utilities ---- */
+@utility container-site {
+  margin-inline: auto;
+  width: 100%;
+  max-width: calc(var(--container-max) + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+@utility content-block {
+  max-width: var(--content-block);
+}
+
+@utility form-block {
+  max-width: var(--form-block);
+}
+
+/* 4 → 8 → 12 columns with the token gutter. */
+@utility grid-page {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+@media (min-width: 768px) {
+  .grid-page {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-page {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Section rhythm (plan §5). */
+@utility section {
+  padding-block: var(--space-section);
+}
+
+@utility section-sm {
+  padding-block: var(--space-section-sm);
+}
+
+/* Structural separator: a 1px line. Interactive boundaries use line-strong. */
+@utility divider {
+  border-top: 1px solid var(--color-line);
+}
+
+/* Shared component classes. Section composition lives in *.module.css. */
+@layer components {
+  /* ---- Actions (plan §5: solid primary, outlined secondary, clear text link; hover,
+     focus, pressed and disabled designed together). Focus = the global ring. ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-control);
+    font-family: var(--font-sans);
+    font-size: var(--text-action);
+    line-height: var(--text-action--line-height);
+    font-weight: var(--text-action--font-weight);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .btn-lg {
+    min-height: 3.25rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  .btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+  .btn-secondary {
+    background-color: transparent;
+    border-color: var(--color-line-strong);
+    color: var(--color-ink);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-sky-mist);
+    border-color: var(--color-primary);
+  }
+  .btn-quiet {
+    min-height: 2.75rem;
+    padding: 0.75rem 0.5rem;
+    color: var(--color-ink);
+    background: transparent;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .btn-quiet:hover {
+    text-decoration-thickness: 2px;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+  }
+  /* Inverse surface: the primary action becomes the honey brand moment. */
+  [data-surface='night'] .btn-primary {
+    background-color: var(--color-honey);
+    border-color: var(--color-honey);
+    color: var(--color-night);
+  }
+  [data-surface='night'] .btn-primary:hover {
+    background-color: var(--color-inverse);
+    border-color: var(--color-inverse);
+  }
+  [data-surface='night'] .btn-secondary {
+    border-color: var(--color-inverse-muted);
+    color: var(--color-inverse);
+  }
+  [data-surface='night'] .btn-secondary:hover {
+    background-color: var(--color-night-panel);
+    border-color: var(--color-inverse);
+  }
+  [data-surface='night'] .btn-quiet {
+    color: var(--color-inverse);
+  }
+
+  /* ---- Level-1 micro-interactions (CSS only, zero JS). Job sentences:
+     underline thickening CONFIRMS the pointer found a target; the 1px lift CONFIRMS
+     activation before navigation; focus indication is INSTANT by design. Gated on
+     any-hover AND no-preference; durations also zero under reduce. ---- */
+  @media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+    .link,
+    .btn-quiet,
+    a.underline,
+    a[class~='hover:underline'] {
+      transition: text-decoration-thickness var(--duration-micro)
+        var(--ease-out-brand);
+    }
+    .btn-primary,
+    .btn-secondary {
+      transition:
+        transform var(--duration-micro) var(--ease-out-brand),
+        background-color var(--duration-micro) var(--ease-out-brand),
+        border-color var(--duration-micro) var(--ease-out-brand);
+    }
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  /* ---- In-copy link: always underlined (no colour-only affordance). ---- */
+  .link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+    text-underline-offset: 4px;
+  }
+  .link:hover {
+    text-decoration-thickness: 2px;
+    text-decoration-color: currentColor;
+  }
+
+  /* ---- Form fields (plan §8 /contact: readable labels, field states, honest
+     feedback). Error/success are never colour-only: text + border weight carry them. ---- */
+  .field-label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .field-control {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-control);
+    border: 1px solid var(--color-line-strong);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .field-control::placeholder {
+    color: var(--color-ink-muted);
+  }
+  .field-control:hover {
+    border-color: var(--color-primary);
+  }
+  .field-control:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: 0;
+    border-color: var(--color-primary);
+  }
+  .field-control[aria-invalid='true'] {
+    border-color: var(--color-error);
+    border-width: 2px;
+  }
+  .field-control:disabled {
+    opacity: 0.6;
+    background-color: var(--color-canvas);
+    cursor: not-allowed;
+  }
+  .field-error {
+    color: var(--color-error);
+  }
+  .notice {
+    border: 1px solid var(--color-line-strong);
+    border-left-width: 4px;
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface);
+    padding: 1rem 1.25rem;
+  }
+  .notice-error {
+    border-color: var(--color-error);
+  }
+  .notice-success {
+    border-color: var(--color-success);
+  }
+
+  /* ---- Compact tag: the only pill in the system. ---- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+  }
+
+  /* ---- Surfaces ---- */
+  .panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+  }
+  .well {
+    background-color: var(--color-sky-mist);
+    border-radius: var(--radius-panel);
+  }
+  .surface-night {
+    background-color: var(--color-night);
+    color: var(--color-inverse);
+  }
+  .panel-night {
+    background-color: var(--color-night-panel);
+    color: var(--color-inverse);
+    border-radius: var(--radius-panel);
+  }
+
+  /* ---- Motion control (plan §7): one fixed button governs all ambient motion. Quiet
+     surface chip; hidden under reduced motion because nothing ambient runs there. ---- */
+  .motion-toggle {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .motion-toggle:hover {
+    background-color: var(--color-sky-mist);
+    border-color: var(--color-primary);
+  }
+  @media (max-width: 767px) {
+    .motion-toggle {
+      right: 0.75rem;
+      bottom: 0.75rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .motion-toggle {
+      display: none;
+    }
+  }
+
+  /* ---- Skip link: parked above the viewport until keyboard focus slides it in. ---- */
+  .skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-control);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    font-family: var(--font-sans);
+    font-size: var(--text-action);
+    line-height: var(--text-action--line-height);
+    font-weight: 600;
+    translate: 0 calc(-100% - 1rem);
+  }
+  .skip-link:focus-visible {
+    translate: 0 0;
+  }
+
+  /* ---- Diagram grammar state rules (07c/07d; recoloured to the live tokens).
+     Defaults live HERE, not as utilities on the elements: the utilities layer outranks
+     this layer, so a utility default would defeat the state rules. ---- */
+  .atlas-glyph,
+  .atlas-edge {
+    stroke: var(--color-ink);
+  }
+  .atlas-edge-label {
+    fill: var(--color-ink-muted);
+  }
+  .atlas-node:is(:hover, :focus-visible) .atlas-glyph,
+  .atlas-node:is(:hover, :focus-visible) .atlas-edge {
+    stroke: var(--color-honey-ink);
+    stroke-width: 3;
+  }
+  [data-atlas-category]:has(.atlas-node:is(:hover, :focus-visible))
+    .atlas-edge-label {
+    fill: var(--color-ink);
+  }
+  .iso-cell {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+  }
+  .iso-connector {
+    stroke: var(--color-ink);
+    stroke-width: 1.5;
+  }
+  .iso-cell-label {
+    fill: var(--color-ink);
+  }
+  .iso-col-label,
+  .iso-support {
+    fill: var(--color-ink-muted);
+  }
+  .iso-column:is(:hover, :focus-visible) .iso-cell,
+  svg[data-iso]:not(:has(.iso-column:is(:hover, :focus-visible)))
+    .iso-column[data-emphasised]
+    .iso-cell {
+    fill: var(--color-sky-mist);
+    stroke: var(--color-honey-ink);
+    stroke-width: 2.5;
+  }
+  .iso-column:is(:hover, :focus-visible) .iso-connector,
+  svg[data-iso]:not(:has(.iso-column:is(:hover, :focus-visible)))
+    .iso-column[data-emphasised]
+    .iso-connector {
+    stroke: var(--color-honey-ink);
+    stroke-width: 2;
+  }
+  .iso-column:is(:hover, :focus-visible) .iso-col-label,
+  .iso-column:is(:hover, :focus-visible) .iso-support,
+  svg[data-iso]:not(:has(.iso-column:is(:hover, :focus-visible)))
+    .iso-column[data-emphasised]
+    .iso-col-label,
+  svg[data-iso]:not(:has(.iso-column:is(:hover, :focus-visible)))
+    .iso-column[data-emphasised]
+    .iso-support {
+    fill: var(--color-ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .atlas-glyph,
+    .atlas-edge,
+    .iso-cell,
+    .iso-connector {
+      transition:
+        fill var(--duration-micro) var(--ease-out-brand),
+        stroke var(--duration-micro) var(--ease-out-brand),
+        stroke-width var(--duration-micro) var(--ease-out-brand);
+    }
+  }
+}
+
+/* Chapters enter once, with all content readable before enhancement. */
+@media (prefers-reduced-motion: no-preference) {
+  .section[data-entered='true'] [data-reveal] {
+    animation: chapter-arrive calc(var(--duration-short) * 3)
+      var(--ease-out-brand) both;
+  }
+  html[data-motion='paused'] [data-reveal] {
+    animation-play-state: paused;
+  }
+}
+@keyframes chapter-arrive {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

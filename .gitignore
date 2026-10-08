@@ -1,0 +1,58 @@
+# Dependencies / build
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment and secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+.npmrc
+.netrc
+.ssh/
+
+# Local project history travels in the handoff ZIP, not the Git repository.
+.claude/
+.memory/
+plan/
+docs/reference/
+CLAUDE.md
+01_CLAUDE_CODE_PROJECT_SYSTEM_PROMPT.md
+02_CLAUDE_CODE_AUTONOMOUS_WORKFLOW.md
+03_SANDBEE_WEBSITE_MASTER_SPEC.md
+UI-REBUILD-PLAN.md
+
+# Deployment metadata, generated reports and transfer archives
+.vercel/
+.lighthouseci/
+.playwright-mcp/
+playwright-report/
+test-results/
+handoff/
+*.zip
+*.sha256
+*.tmp.*
+.handoff-*
+HANDOFF-MANIFEST.json
+lighthouserc*.cjs
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# Personal Claude Code notes (never shared)
+CLAUDE.local.md
+.claude/CLAUDE.local.md

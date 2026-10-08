@@ -1,0 +1,20 @@
+# Build output and tool state
+node_modules
+.next
+out
+coverage
+playwright-report
+test-results
+.lighthouseci
+handoff
+.handoff-*
+package-lock.json
+next-env.d.ts
+
+# Non-code areas of the repo (plan/memory/docs are hand-authored markdown, not code)
+plan/
+.memory/
+docs/
+.claude/
+public/
+*.md

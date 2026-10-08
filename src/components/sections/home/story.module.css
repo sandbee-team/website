@@ -1,0 +1,83 @@
+/* Section 6 (engineering story) and section 7 (closing). */
+.story {
+  background-color: var(--color-canvas);
+  border-top: 1px solid var(--color-line);
+}
+.grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: 5rem;
+  }
+}
+.copy {
+  min-width: 0;
+}
+.figure {
+  min-width: 0;
+  margin: 0;
+  padding: 1.25rem;
+}
+@media (min-width: 640px) {
+  .figure {
+    padding: 1.5rem;
+  }
+}
+.coverage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.cellItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 7.5rem;
+  padding: 1rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-control);
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+.cellBuilt {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+}
+.cellLabel {
+  font-weight: 600;
+}
+.cellNote {
+  color: var(--color-ink-muted);
+}
+.cellBuilt .cellNote {
+  color: var(--color-inverse-muted);
+}
+.figcaption {
+  margin-top: 1rem;
+  color: var(--color-ink-muted);
+}
+
+.closing {
+  background-color: var(--color-warm);
+  border-top: 1px solid var(--color-line);
+}
+.closingGrid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: end;
+}
+@media (min-width: 1024px) {
+  .closingGrid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    gap: 4rem;
+  }
+}
+.closingCopy {
+  min-width: 0;
+}

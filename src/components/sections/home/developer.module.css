@@ -1,0 +1,100 @@
+/* Section 5: the night surface and the package directory. */
+.developer {
+  position: relative;
+}
+.grid {
+  display: grid;
+  gap: 3rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 5rem;
+  }
+}
+.copy {
+  min-width: 0;
+}
+.directory {
+  min-width: 0;
+  border-top: 1px solid var(--color-inverse-muted);
+}
+.directoryHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  color: var(--color-inverse-muted);
+}
+.entry {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-inverse) 22%, transparent);
+  color: var(--color-inverse);
+  text-decoration: none;
+}
+@media (min-width: 640px) {
+  .entry {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 1.5rem;
+  }
+}
+.entryBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.entryName {
+  color: var(--color-inverse);
+}
+.entryKind {
+  color: var(--color-inverse-muted);
+}
+.entryDelivery {
+  grid-column: 1 / -1;
+  color: var(--color-inverse-muted);
+}
+@media (min-width: 640px) {
+  .entryDelivery {
+    grid-column: auto;
+  }
+}
+.entryArrow {
+  grid-row: 1;
+  grid-column: 2;
+  justify-self: end;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-honey);
+}
+@media (min-width: 640px) {
+  .entryArrow {
+    grid-column: 3;
+  }
+}
+.entry:hover .entryName {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+@media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+  .entryArrow {
+    transition: transform var(--duration-micro) var(--ease-out-brand);
+  }
+  .entry:hover .entryArrow {
+    transform: translateX(4px);
+  }
+}
+.entry:focus-visible {
+  outline-offset: 4px;
+}
+.directoryNote {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-inverse-muted);
+  color: var(--color-inverse-muted);
+}

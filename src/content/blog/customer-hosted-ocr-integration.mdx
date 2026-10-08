@@ -1,0 +1,76 @@
+---
+id: customer-hosted-ocr-integration
+title: 'Integrating OCR on your own server'
+summary: 'Plan a Sandbee OCR integration around server compatibility, document handling, access checks and a small, reviewable acceptance test.'
+publishedAt: '2026-09-25T10:00:00+05:30'
+authors: [sandbee]
+category: engineering
+relatedTechnologies: [aadhaar-pan-ocr]
+relatedPosts: [hosted-api-or-installed-sdk]
+draft: false
+---
+
+Sandbee's free OCR SDK runs on the customer's server. Documents remain local to
+that environment. This gives your team a clear place to start an integration:
+identify the process that accepts a document, the process that extracts its text,
+and the application that uses the result.
+
+Those boundaries matter as much as the extraction call. An OCR integration includes
+uploads, temporary files, result handling and operational failures. Plan each step
+before connecting it to a live workflow.
+
+## Confirm the runtime before integration
+
+The [Sandbee OCR SDK](/technology/aadhaar-pan-ocr) requires Node.js 22 or newer on
+the customer's server. Verified platforms are Windows x64 and Linux x64 with glibc.
+Check the target machine's operating system, architecture and Node.js version before
+building the surrounding application.
+
+Treat compatibility as a deployment requirement. A successful run on a developer's
+laptop does not establish that the production image has the same environment.
+Record the environment you test, keep the SDK version alongside that record, and
+repeat the check when you change the server image or runtime.
+
+## Separate documents from access checks
+
+Local document processing and access verification are different parts of this
+integration. The SDK verifies access at startup and through periodic lease checks.
+Documents remain local, but the application must account for those access checks
+when planning deployment and network connectivity.
+
+Before launch, establish the expected behaviour when startup verification cannot
+complete or a periodic check fails. Use the current SDK instructions to confirm
+the recovery steps. Do not assume that local processing means an indefinitely
+disconnected installation. Record the access-check requirements without copying
+credentials into source control, tickets or screenshots.
+
+## Control the upload boundary
+
+Apply controls before a document reaches the OCR process. Decide which file types
+the application accepts, impose a size limit, and require an authorised caller.
+Use application-generated storage names and keep uploads outside a publicly served
+directory. These recommendations follow the
+[OWASP File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html),
+which also explains why a supplied content-type header is not sufficient validation.
+
+Make temporary storage and cleanup explicit integration decisions. Decide when
+the application deletes an uploaded file and whether it needs to retain an
+extracted result. Review application logs and error reports for accidental document
+contents. Running extraction locally does not decide those application policies
+for you.
+
+## Test the whole document journey
+
+Build a small acceptance set using documents you are authorised to process. Include
+a clear input, a difficult input and an input your application should reject.
+Record the expected handling, then check the result with a person who understands
+the receiving workflow.
+
+Exercise failure paths as well: an unavailable worker, a rejected upload, an
+interrupted request and an access-check failure. Check what the user sees, what
+the operator can diagnose, and whether temporary files remain afterwards. Keep
+test documents and extracted personal information out of general test reports.
+
+The useful deliverable is a repeatable acceptance record: environment, SDK version,
+test cases, observed results and recovery steps. It gives the next engineer a
+starting point when a server or application change affects the integration.

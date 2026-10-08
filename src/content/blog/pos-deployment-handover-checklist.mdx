@@ -1,0 +1,83 @@
+---
+id: pos-deployment-handover-checklist
+title: 'A practical POS deployment handover checklist'
+summary: "Prepare a POS handover that covers the customer's Vercel account, configuration, acceptance checks and the boundary between setup and ongoing costs."
+publishedAt: '2026-09-25T10:00:00+05:30'
+authors: [sandbee]
+category: product
+relatedTechnologies: [pos]
+relatedPosts: [hosted-api-or-installed-sdk]
+draft: false
+---
+
+Sandbee's POS delivery uses a one-time setup charge and a deployment in the
+customer's Vercel account. A useful handover makes that ownership practical: the
+customer knows where the application lives, and the implementation team knows how
+to support the agreed setup.
+
+Use this checklist alongside the agreed [Sandbee POS](/products/pos) scope. It is
+a way to prepare a handover, not a list of features automatically included in
+every deployment.
+
+## Record account and access ownership
+
+Start with the customer account and the actual project. Record the project name,
+the application URL and the person responsible for the account. Confirm who can
+approve access changes and who will receive operational or billing notifications.
+
+Give each collaborator their own appropriate access through the platform's
+available controls. Agree how implementation access will be reviewed after launch.
+The handover record should identify access owners without containing passwords,
+tokens or recovery codes.
+
+Keep account ownership distinct from delivery rights. A deployment in a customer's
+account does not, by itself, define source-code delivery, future customisation or
+support terms. Put those boundaries in the agreed implementation scope so both
+parties can refer to the same record.
+
+## Separate test and live configuration
+
+Identify which URL is live and which environment is used for testing. Vercel
+documents separate Local, Preview and Production environments in its
+[environment guide](https://vercel.com/docs/deployments/environments). Check the
+actual project configuration instead of assuming a test deployment is isolated
+from live services.
+
+List the configuration names the application needs and identify who maintains
+their values. Keep the values in the appropriate configuration system, not in the
+handover document. Note which settings differ between testing and production.
+
+After changing an environment variable, verify a new deployment. Vercel's
+[environment-variable documentation](https://vercel.com/docs/environment-variables)
+states that changes apply to new deployments, not previous ones. A saved setting
+alone is therefore not evidence that the running application uses the new value.
+
+## Agree the acceptance checks
+
+Choose checks from the workflow agreed for this deployment. Avoid a generic test
+list that silently promises capabilities outside the scope. For each check,
+record the starting state, the action, the expected result and who accepts it.
+
+Include access to the live URL, the agreed user roles and the core workflow the
+customer expects to use. Add the agreed failure and recovery checks where those
+are part of the implementation. Use clearly identified test records and agree how
+to remove them before the customer starts normal operations.
+
+Finish the review together. Record any unresolved item with an owner and a next
+step. A successful deployment status is one input to acceptance; the customer's
+ability to complete the agreed workflow is another.
+
+## Leave an operating record
+
+The final record should cover project ownership, configuration responsibility,
+acceptance results and the support contact. Include the process for requesting a
+change and the agreed boundary between correcting an issue and adding a feature.
+
+Keep the one-time setup charge separate from infrastructure assumptions. Check
+the customer's platform plan, usage and any connected services when discussing
+ongoing costs. A setup payment does not establish unlimited hosting or permanently
+free infrastructure.
+
+A good handover lets someone unfamiliar with the implementation find the right
+account, understand the live setup and contact the right person. That is the
+practical test to apply before calling the deployment complete.

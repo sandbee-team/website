@@ -1,0 +1,581 @@
+.page {
+  --experience-accent: var(--color-primary);
+  --experience-ground: var(--color-sky-mist);
+}
+.page[data-experience='services'],
+.page[data-experience='stories'],
+.page[data-experience='journal'] {
+  --experience-accent: var(--color-sculpture-plum);
+}
+.page[data-experience='technology'],
+.page[data-experience='company'],
+.page[data-experience='custom'] {
+  --experience-accent: var(--color-ink);
+  --experience-ground: var(--color-warm);
+}
+.intro {
+  display: grid;
+  align-items: center;
+  gap: 3rem;
+  padding-block: 2rem 4rem;
+  border-bottom: 1px solid var(--color-line-strong);
+}
+.copy {
+  min-width: 0;
+}
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--experience-accent);
+}
+.kicker::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+}
+.title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.4rem, 4.5vw, 3.75rem);
+  font-weight: 550;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  max-width: 24ch;
+  margin-top: 1.75rem;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.lede {
+  max-width: 42ch;
+  margin-top: 2rem;
+  color: var(--color-ink-muted);
+}
+.introLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 44px;
+  margin-top: 2rem;
+  font-size: var(--text-ui);
+  color: var(--color-ink);
+  text-underline-offset: 6px;
+}
+.index {
+  display: flex;
+  gap: 0.5rem 1.75rem;
+  flex-wrap: wrap;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+.index a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.65rem;
+  max-width: 32ch;
+  color: var(--color-ink-muted);
+  font-size: var(--text-caption);
+  text-decoration: none;
+}
+.index a:hover,
+.index a:focus-visible {
+  color: var(--experience-accent);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.index span {
+  font-family: var(--font-mono);
+  color: var(--experience-accent);
+}
+.body {
+  counter-reset: page-chapter;
+  padding-bottom: 4rem;
+}
+.body > section {
+  position: relative;
+  max-width: none;
+  margin-top: 0;
+  padding-block: clamp(2.5rem, 5vw, 5rem);
+  border-bottom: 1px solid var(--color-line);
+  scroll-margin-top: 2rem;
+}
+.body > section:has(> h2) {
+  counter-increment: page-chapter;
+}
+.body > section > h2 {
+  position: relative;
+  padding-top: 1.5rem;
+}
+.body > section > h2::before {
+  content: counter(page-chapter, decimal-leading-zero) ' /';
+  display: block;
+  position: absolute;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  line-height: 1;
+  font-weight: 400;
+  color: var(--experience-accent);
+  letter-spacing: 0;
+}
+.body > section > h2 {
+  max-width: 20ch;
+}
+.body > section > :not(h2) {
+  min-width: 0;
+}
+.body > section > ul > li,
+.body > section > dl > div {
+  transition: border-color var(--duration-short) var(--ease-out-brand);
+}
+.body > section > ul > li:hover,
+.body > section > dl > div:hover {
+  border-color: var(--experience-accent);
+}
+.body > p {
+  max-width: var(--measure);
+}
+.body > div:has(figure),
+.body > figure {
+  margin-block: 3rem;
+  max-width: none;
+}
+.quiet .intro {
+  grid-template-columns: 1fr;
+  min-height: 40svh;
+}
+.quiet .title {
+  font-size: clamp(4rem, 7vw, 7rem);
+  max-width: 20ch;
+}
+.quiet .body {
+  max-width: var(--content-block);
+}
+.visual {
+  view-timeline-name: --experience-view;
+  view-timeline-axis: block;
+  position: relative;
+  min-width: 0;
+  border-block: 1px solid var(--color-line-strong);
+  background: transparent;
+  padding: 1.25rem;
+}
+/* The browser scrubs the camera as the hero passes through the viewport.
+   Unsupported browsers retain the fully interactive static composition. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .model {
+      animation: camera-travel linear both;
+      animation-timeline: --experience-view;
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+@keyframes camera-travel {
+  from {
+    rotate: y -12deg;
+  }
+  to {
+    rotate: y 18deg;
+  }
+}
+.visualTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  color: var(--experience-accent);
+}
+.visualTop > :last-child {
+  color: var(--color-ink-muted);
+}
+.stage {
+  height: clamp(320px, 36vw, 520px);
+  position: relative;
+  perspective: 1100px;
+  overflow: clip;
+}
+.stage::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  bottom: 10%;
+  width: 64%;
+  height: 10%;
+  background: radial-gradient(
+    ellipse,
+    var(--color-sculpture-shadow),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+}
+.canvas[data-render='webgl'] {
+  opacity: 1;
+}
+.stage:has(.canvas[data-render='webgl']) .model {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .canvas[data-render='webgl'] {
+    opacity: 0;
+  }
+  .stage:has(.canvas[data-render='webgl']) .model {
+    visibility: visible;
+  }
+}
+.stageGrid {
+  position: absolute;
+  inset: 10% 3%;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  opacity: 0.2;
+}
+.stageGrid::before,
+.stageGrid::after {
+  content: '';
+  position: absolute;
+  inset: 9%;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+}
+.stageGrid::after {
+  inset: 19%;
+}
+.model {
+  position: absolute;
+  width: 230px;
+  height: 170px;
+  left: 50%;
+  top: 50%;
+  margin-left: -115px;
+  margin-top: -85px;
+  transform-style: preserve-3d;
+  transform: rotateX(56deg) rotateZ(-33deg);
+}
+.piece {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc((var(--piece) - 1) * 48px));
+}
+.face {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--experience-accent);
+  border-radius: var(--radius-control);
+  padding: 16px;
+  color: var(--experience-accent);
+  backface-visibility: hidden;
+}
+.piece:nth-child(2) .face {
+  background: var(--color-sculpture-citron);
+}
+.piece:nth-child(3) .face {
+  background: var(--experience-accent);
+  color: var(--color-inverse);
+}
+.edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 13px;
+  background: var(--experience-accent);
+  transform-origin: bottom;
+  transform: rotateX(-90deg);
+}
+.glyph {
+  font-family: var(--font-display-brand), var(--font-sans);
+  font-size: 65px;
+  line-height: 1;
+}
+.engraving {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.lines {
+  position: absolute;
+  right: 20px;
+  top: 22px;
+  display: grid;
+  gap: 9px;
+  width: 55px;
+}
+.lines i {
+  height: 3px;
+  background: currentColor;
+  opacity: 0.5;
+}
+.lines i:last-child {
+  width: 65%;
+}
+.artCaption {
+  position: relative;
+  font-size: var(--text-caption);
+  color: var(--color-ink-muted);
+  max-width: 38ch;
+}
+.disclosure {
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-line-strong);
+}
+.disclosure summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  font-size: var(--text-ui);
+  color: var(--experience-accent);
+  list-style: none;
+}
+.disclosure summary::-webkit-details-marker {
+  display: none;
+}
+.disclosure p {
+  padding-block: 0.5rem;
+  color: var(--color-ink-muted);
+  max-width: 48ch;
+}
+.whenOpen,
+.disclosure[open] .whenClosed {
+  display: none;
+}
+.disclosure[open] .whenOpen {
+  display: inline;
+}
+.visual:has(details[open]) .piece {
+  transform: translateZ(calc((var(--piece) - 1) * 100px));
+}
+/* Each form expresses a different delivery model; the geometry is decorative. */
+.visual[data-experience-art='services'] .model {
+  transform: rotateX(52deg) rotateZ(-20deg);
+}
+.visual[data-experience-art='services'] .piece {
+  transform: translateX(calc((var(--piece) - 1) * 93px))
+    translateY(calc((var(--piece) - 1) * 38px))
+    translateZ(calc(var(--piece) * 20px));
+}
+.visual[data-experience-art='services'] .face {
+  border-radius: var(--radius-pill);
+}
+.visual[data-experience-art='services']:has(details[open]) .piece {
+  transform: translateX(calc((var(--piece) - 1) * 128px))
+    translateY(calc((var(--piece) - 1) * 55px))
+    translateZ(calc(var(--piece) * 45px));
+}
+.visual[data-experience-art='company'] .model,
+.visual[data-experience-art='custom'] .model {
+  transform: rotateX(12deg) rotateY(-28deg);
+}
+.visual[data-experience-art='company'] .piece,
+.visual[data-experience-art='custom'] .piece {
+  width: 100px;
+  height: 230px;
+  transform: translateX(calc((var(--piece) - 1) * 78px))
+    translateY(calc(var(--piece) * -26px)) translateZ(calc(var(--piece) * 30px));
+}
+.visual[data-experience-art='company']:has(details[open]) .piece,
+.visual[data-experience-art='custom']:has(details[open]) .piece {
+  transform: translateX(calc((var(--piece) - 1) * 108px))
+    translateY(calc(var(--piece) * -26px)) translateZ(calc(var(--piece) * 45px))
+    rotateY(-18deg);
+}
+.visual[data-experience-art='company'] .lines,
+.visual[data-experience-art='custom'] .lines {
+  display: none;
+}
+.visual[data-experience-art='stories'] .model,
+.visual[data-experience-art='journal'] .model,
+.visual[data-experience-art='contact'] .model {
+  transform: rotateX(20deg) rotateY(-24deg) rotateZ(8deg);
+}
+.visual[data-experience-art='stories'] .piece,
+.visual[data-experience-art='journal'] .piece,
+.visual[data-experience-art='contact'] .piece {
+  transform-origin: left;
+  transform: rotateY(calc(var(--piece) * -18deg));
+}
+.visual[data-experience-art='stories']:has(details[open]) .piece,
+.visual[data-experience-art='journal']:has(details[open]) .piece,
+.visual[data-experience-art='contact']:has(details[open]) .piece {
+  transform: rotateY(calc(var(--piece) * -50deg));
+}
+.visual[data-experience-art='technology'] .model {
+  transform: rotateX(54deg) rotateZ(35deg);
+}
+.visual[data-experience-art='technology'] .face {
+  border-radius: 0;
+}
+.visual[data-experience-art='technology'] .glyph {
+  font-family: var(--font-mono);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .piece,
+  .model {
+    transition: transform calc(var(--duration-short) * 3) var(--ease-out-brand);
+  }
+  .visual:hover .model {
+    translate: 0 -6px;
+  }
+  .model {
+    transition:
+      transform calc(var(--duration-short) * 3) var(--ease-out-brand),
+      translate var(--duration-short) var(--ease-out-brand);
+  }
+}
+/* Rings carry a request between systems; architectural arches carry the company. */
+.visual[data-experience-art='services'] .piece {
+  width: 170px;
+  height: 170px;
+}
+.visual[data-experience-art='services'] .face {
+  background: transparent;
+  border: 22px solid var(--experience-accent);
+}
+.visual[data-experience-art='services'] .piece:nth-child(2) .face {
+  background: transparent;
+  border-color: var(--color-sculpture-citron);
+}
+.visual[data-experience-art='services'] .piece:nth-child(3) .face {
+  background: transparent;
+}
+.visual[data-experience-art='services'] .edge,
+.visual[data-experience-art='services'] .face > * {
+  display: none;
+}
+.visual[data-experience-art='company'] .face,
+.visual[data-experience-art='custom'] .face {
+  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
+  padding-top: 45px;
+}
+.visual[data-experience-art='technology'] .edge {
+  height: 28px;
+}
+/* A brief slides out of its envelope; the cover folds back on the same hinge. */
+.visual[data-experience-art='contact'] .piece {
+  transform-origin: top;
+  transform: translateZ(calc(var(--piece) * 5px));
+}
+.visual[data-experience-art='contact'] .piece:nth-child(3) .face {
+  clip-path: polygon(0 0, 100% 0, 50% 70%);
+}
+.visual[data-experience-art='contact'] .piece:nth-child(3) .face > *,
+.visual[data-experience-art='contact'] .piece:nth-child(3) .edge {
+  display: none;
+}
+.visual[data-experience-art='contact']:has(details[open]) .piece {
+  transform: translateZ(calc(var(--piece) * 5px));
+}
+.visual[data-experience-art='contact']:has(details[open]) .piece:nth-child(2) {
+  transform: translateY(-90px) translateZ(5px);
+}
+.visual[data-experience-art='contact']:has(details[open]) .piece:nth-child(3) {
+  transform: translateZ(10px) rotateX(150deg);
+}
+.visual[data-experience-art='journal'] .piece {
+  transform: translateZ(calc(var(--piece) * 12px))
+    rotateZ(calc((var(--piece) - 1) * 8deg));
+}
+.visual[data-experience-art='journal']:has(details[open]) .piece {
+  transform: translateX(calc((var(--piece) - 1) * 65px))
+    translateZ(calc(var(--piece) * 25px))
+    rotateZ(calc((var(--piece) - 1) * 20deg));
+}
+@media (min-width: 1024px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+  .body > section:has(> h2) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    column-gap: clamp(3rem, 7vw, 8rem);
+  }
+  .body > section > h2 {
+    position: sticky;
+    top: 2rem;
+    grid-column: 1;
+    grid-row: 1 / span 20;
+    align-self: start;
+    font-size: clamp(1.75rem, 2.5vw, 2.75rem);
+  }
+  .body > section > :not(h2) {
+    grid-column: 2;
+  }
+  .body > section > :nth-child(2) {
+    margin-top: 0;
+  }
+  .body > section:has(> h2):has(> .fullWidth) {
+    display: block;
+  }
+  .page[data-experience='products'] .body > section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+  }
+  .page[data-experience='products'] .body > section > h2 {
+    font-size: clamp(1.75rem, 2.2vw, 2.4rem);
+    line-height: 1.15;
+    max-width: 15ch;
+  }
+  .page[data-experience='products'] .body > section > :nth-child(2) {
+    margin-top: 1.5rem;
+  }
+  .page[data-experience='products'] .body > section:not(:has(> h2)) > * {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+@media (max-width: 767px) {
+  .intro {
+    padding-top: 1rem;
+    gap: 2rem;
+  }
+  .title {
+    font-size: clamp(2.4rem, 7.5vw, 3.5rem);
+    max-width: 24ch;
+  }
+  .lede {
+    margin-top: 1.5rem;
+  }
+  .visual {
+    padding: 1rem;
+  }
+  .visualTop {
+    align-items: flex-start;
+  }
+  .visualTop > :last-child {
+    display: none;
+  }
+  .stage {
+    height: 300px;
+  }
+  .model {
+    scale: 0.8;
+  }
+  .index {
+    gap: 0.25rem 1rem;
+  }
+  .index a {
+    max-width: none;
+  }
+  .body > section > h2 {
+    max-width: none;
+  }
+}

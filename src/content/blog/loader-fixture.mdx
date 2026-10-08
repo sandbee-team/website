@@ -1,0 +1,20 @@
+---
+# Loader fixture only (ADR-0011 §4): draft is permanently true, so no public loader API,
+# route, index or feed ever surfaces this file. It contains no company facts. ADR-0006
+# bans fabricated articles — this never renders as one.
+id: loader-fixture
+title: 'Blog loader fixture (never published)'
+summary: 'Structural fixture proving the blog schema, author validation and computed reading time. Draft forever — deleted when the first real post lands (Q11).'
+publishedAt: '2026-09-01T00:00:00+05:30'
+authors:
+  - sandbee
+category: engineering
+relatedTechnologies:
+  - electron-tracking
+relatedPosts: []
+draft: true
+---
+
+This file exists so the blog loader's schema validation, author-registry check and
+computed word count have something real to parse in unit tests. It is not an article
+and never appears on the site.
